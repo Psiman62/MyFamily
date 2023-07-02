@@ -1,11 +1,11 @@
 ﻿@page "/"
+@using BlazorApp.Shared;
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
-Welcome to MyFamily version @version.
+Welcome to @AppInfo.Global.Name version @AppInfo.Global.Version.
 
 @code {
-    private string version = "1.0"; // ThisAssembly.AssemblyFileVersion;
 }
