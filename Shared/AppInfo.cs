@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlazorApp.Shared
+namespace MyFamily.Models
 {
     public class AppInfo
     {
@@ -14,7 +14,7 @@ namespace BlazorApp.Shared
         private AppInfo()
         {
             Name = "MyFamily";
-            AppVersion = typeof(MyFamily.Models.Contracts.ILocalProfile).Assembly.GetName().Version.ToString();
+            AppVersion = typeof(Contracts.ILocalProfile).Assembly.GetName().Version.ToString();
             CG4Version = MetaFac.CG4.Runtime.BuildInfo.Instance.AssemblyFileVersion;
         }
 

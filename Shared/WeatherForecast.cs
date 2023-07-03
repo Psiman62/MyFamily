@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlazorApp.Shared
+namespace MyFamily.Models
 {
     public class WeatherForecast
     {
