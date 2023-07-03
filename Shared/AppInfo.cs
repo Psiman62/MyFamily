@@ -8,11 +8,14 @@ namespace BlazorApp.Shared
         public static AppInfo Global => _global;
 
         public readonly string Name;
-        public readonly Version Version;
+        public readonly string AppVersion;
+        public readonly string CG4Version;
+
         private AppInfo()
         {
             Name = "MyFamily";
-            Version = new Version(1, 0, 0);
+            AppVersion = typeof(MyFamily.Models.Contracts.ILocalProfile).Assembly.GetName().Version.ToString();
+            CG4Version = MetaFac.CG4.Runtime.BuildInfo.Instance.AssemblyFileVersion;
         }
 
     }
