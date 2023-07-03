@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyFamily.Models
+﻿namespace MyFamily.Models
 {
     public class AppInfo
     {
