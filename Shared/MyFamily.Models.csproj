@@ -5,6 +5,7 @@
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<Version>1.0.4-beta</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
