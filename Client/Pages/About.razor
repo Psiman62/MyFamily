@@ -1,12 +1,13 @@
 ﻿@page "/about"
-@using BlazorApp.Shared;
+@using MyFamily.Models;
 
 <PageTitle>About</PageTitle>
 
 <h1>About</h1>
 <h3>AppInfo</h3>
-<p>Name: @AppInfo.Global.Name</p>
-<p>Version: @AppInfo.Global.Version</p>
+<p>App Name: @AppInfo.Global.Name</p>
+<p>App Version: @AppInfo.Global.AppVersion</p>
+<p>CG4 Version: @AppInfo.Global.CG4Version</p>
 
 @code {
 
