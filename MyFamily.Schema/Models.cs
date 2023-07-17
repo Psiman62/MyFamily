@@ -3,10 +3,9 @@
 namespace MyFamily.Schema
 {
     [Entity(1)]
-    public interface ILocalProfile
+    public class LocalProfile
     {
         [Member(1)]
-        string ProfileName { get; }
-
+        public string? ProfileName { get; }
     }
 }
