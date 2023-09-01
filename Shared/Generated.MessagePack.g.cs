@@ -5,7 +5,7 @@
 // </auto-generated>
 // <information>
 // This file was generated using MetaFac.CG4 tools and user supplied metadata.
-// Generator: MessagePack.2.0
+// Generator: MessagePack.2.1
 // Metadata : MyFamily.Schema
 // </information>
 #endregion
@@ -193,6 +193,7 @@ namespace MyFamily.Models.MessagePack
         private int? _hashCode = null;
         public override int GetHashCode()
         {
+            if (!_isFrozen) return CalcHashCode();
             if (_hashCode is null)
                 _hashCode = CalcHashCode();
             return _hashCode.Value;

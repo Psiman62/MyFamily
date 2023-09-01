@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MetaFac.CG4.Attributes" Version="2.0.2" />
+    <PackageReference Include="MetaFac.CG4.Attributes" Version="2.1.10" />
   </ItemGroup>
 
 </Project>
