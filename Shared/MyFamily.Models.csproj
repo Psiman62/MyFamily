@@ -14,8 +14,8 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="MetaFac.CG4.Runtime" Version="2.1.10" />
-	  <PackageReference Include="MetaFac.CG4.Runtime.MessagePack" Version="2.1.10" />
+	  <PackageReference Include="MetaFac.CG4.Runtime" Version="2.1.13" />
+	  <PackageReference Include="MetaFac.CG4.Runtime.MessagePack" Version="2.1.13" />
 	  <PackageReference Include="MetaFac.Memory" Version="1.2.3" />
 	  <PackageReference Include="MetaFac.Mutability" Version="2.1.4" />
 	</ItemGroup>

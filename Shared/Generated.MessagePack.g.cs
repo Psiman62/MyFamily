@@ -87,7 +87,7 @@ namespace MyFamily.Models.MessagePack
     }
 
 
-    public partial class LocalProfile
+    public sealed partial class LocalProfile
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LocalProfile? CreateFrom(ILocalProfile? source)
