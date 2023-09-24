@@ -12,7 +12,7 @@
         private AppInfo()
         {
             Name = "MyFamily";
-            AppVersion = typeof(Contracts.ILocalProfile).Assembly.GetName().Version.ToString();
+            AppVersion = ThisAssembly.AssemblyFileVersion;
             CG4Version = MetaFac.CG4.Runtime.BuildInfo.Instance.AssemblyFileVersion;
         }
 
