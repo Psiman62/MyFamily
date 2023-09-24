@@ -5,7 +5,7 @@
 // </auto-generated>
 // <information>
 // This file was generated using MetaFac.CG4 tools and user supplied metadata.
-// Generator: MessagePack.2.1
+// Generator: MessagePack.2.2
 // Metadata : MyFamily.Schema
 // </information>
 #endregion
@@ -87,24 +87,20 @@ namespace MyFamily.Models.MessagePack
     }
 
 
-    public sealed partial class LocalProfile
+    public sealed class LocalProfile_Factory : IEntityFactory<ILocalProfile, LocalProfile>
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LocalProfile? CreateFrom(ILocalProfile? source)
+        private static readonly LocalProfile_Factory _instance = new LocalProfile_Factory();
+        public static LocalProfile_Factory Instance => _instance;
+
+        public LocalProfile? CreateFrom(ILocalProfile? source)
         {
             if (source is null) return null;
+            if (source is LocalProfile sibling && sibling.IsFrozen()) return sibling;
             return new LocalProfile(source);
         }
 
-        private static LocalProfile CreateEmpty()
-        {
-            var empty = new LocalProfile();
-            empty.Freeze();
-            return empty;
-        }
-        private static readonly LocalProfile _empty = CreateEmpty();
-        public static new LocalProfile Empty => _empty;
-
+        private static readonly LocalProfile _empty = new LocalProfile().Frozen();
+        public LocalProfile Empty => _empty;
     }
     [MessagePackObject]
     public partial class LocalProfile : EntityBase, ILocalProfile, IEquatable<LocalProfile>, ICopyFrom<LocalProfile>
