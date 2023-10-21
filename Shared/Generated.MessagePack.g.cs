@@ -5,7 +5,7 @@
 // </auto-generated>
 // <information>
 // This file was generated using MetaFac.CG4 tools and user supplied metadata.
-// Generator: MessagePack.2.2
+// Generator: MessagePack.2.4
 // Metadata : MyFamily.Schema
 // </information>
 #endregion
@@ -47,18 +47,9 @@ namespace MyFamily.Models.MessagePack
             return ref value;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void CheckNotFrozen()
-        {
-            if (_isFrozen) ThrowIsReadonly();
-        }
-
         public EntityBase() { }
         public EntityBase(EntityBase source) { }
-        public void CopyFrom(EntityBase source)
-        {
-            CheckNotFrozen();
-        }
+        public void CopyFrom(EntityBase source) { }
         public EntityBase(IEntityBase source) { }
         protected abstract int OnGetEntityTag();
         public int GetEntityTag() => OnGetEntityTag();
@@ -127,12 +118,10 @@ namespace MyFamily.Models.MessagePack
         // ---------- ILocalProfile methods ----------
         String? ILocalProfile.ProfileName => field_ProfileName;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalProfile()
         {
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalProfile(LocalProfile source) : base(source)
         {
             field_ProfileName = source.field_ProfileName;
@@ -144,7 +133,6 @@ namespace MyFamily.Models.MessagePack
             field_ProfileName = source.field_ProfileName;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalProfile(ILocalProfile source) : base(source)
         {
             field_ProfileName = source.ProfileName;
@@ -158,21 +146,18 @@ namespace MyFamily.Models.MessagePack
             return base.Equals(other);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(LocalProfile left, LocalProfile right)
         {
             if (left is null) return (right is null);
             return left.Equals(right);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(LocalProfile left, LocalProfile right)
         {
             if (left is null) return !(right is null);
             return !left.Equals(right);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object? obj)
         {
             return obj is LocalProfile other && Equals(other);
