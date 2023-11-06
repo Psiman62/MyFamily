@@ -5,7 +5,7 @@
 // </auto-generated>
 // <information>
 // This file was generated using MetaFac.CG4 tools and user supplied metadata.
-// Generator: MessagePack.2.4
+// Generator: MessagePack.2.6
 // Metadata : MyFamily.Schema
 // </information>
 #endregion
@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using MyFamily.Models.Contracts;
 
@@ -47,9 +48,15 @@ namespace MyFamily.Models.MessagePack
             return ref value;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void CheckNotFrozen()
+        {
+            if (_isFrozen) ThrowIsReadonly();
+        }
+
         public EntityBase() { }
         public EntityBase(EntityBase source) { }
-        public void CopyFrom(EntityBase source) { }
+        public void CopyFrom(EntityBase source) => CheckNotFrozen();
         public EntityBase(IEntityBase source) { }
         protected abstract int OnGetEntityTag();
         public int GetEntityTag() => OnGetEntityTag();
