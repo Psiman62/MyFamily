@@ -1,4 +1,5 @@
-﻿using MetaFac.CG4.Attributes;
+﻿
+using FluentModels;
 
 namespace MyFamily.Schema
 {
