@@ -14,7 +14,7 @@
         {
             Name = "MyFamily";
             AppVersion = ThisAssembly.AssemblyFileVersion;
-            CommitDate = ThisAssembly.GitCommitDate.ToString("R");
+            CommitDate = ThisAssembly.GitCommitDate.ToString("M");
             CG4Version = MetaFac.CG4.Runtime.BuildInfo.Instance.AssemblyFileVersion;
         }
 
