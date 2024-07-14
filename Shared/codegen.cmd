@@ -19,5 +19,5 @@ call :a2c MessagePack
 goto :eof
 
 :a2c
-    mfcg4 a2c -am ..\%schema%\bin\Debug\net7.0\%schema%.dll -an %schema% -g %1 -o Generated.%1.g.cs -on %models%
+    mfcg4 a2c -am ..\%schema%\bin\Debug\net8.0\%schema%.dll -an %schema% -g %1 -o Generated.%1.g.cs -on %models%
     goto :eof
