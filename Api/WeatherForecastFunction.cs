@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using MyFamily.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using MyFamily.Models.JsonSystemText;
 
 namespace ApiIsolated
 {
@@ -23,13 +25,18 @@ namespace ApiIsolated
             var randomNumber = new Random();
             var temp = 0;
 
-            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var details = Enumerable.Range(1, 5).Select(index => new WeatherDetail
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = temp = randomNumber.Next(-20, 55),
                 Summary = GetSummary(temp)
             }).ToArray();
-
+            var result = new WeatherBundle()
+            {
+                ServerVersion = ThisAssembly.AssemblyFileVersion,
+                Details = ImmutableList.Create( details),
+                StatusMessage = "Success",
+            };
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.WriteAsJsonAsync(result);
 

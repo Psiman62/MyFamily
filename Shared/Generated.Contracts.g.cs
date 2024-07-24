@@ -25,10 +25,16 @@ namespace MyFamily.Models.Contracts
     {
         String? ProfileName { get; }
     }
-    public partial interface IWeatherData : IEntityBase
+    public partial interface IWeatherDetail : IEntityBase
     {
         DateTime Date { get; }
         Int32 TemperatureC { get; }
         String? Summary { get; }
+    }
+    public partial interface IWeatherBundle : IEntityBase
+    {
+        String? ServerVersion { get; }
+        String? StatusMessage { get; }
+        IReadOnlyList<IWeatherDetail?>? Details { get; }
     }
 }

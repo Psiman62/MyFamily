@@ -189,23 +189,23 @@ namespace MyFamily.Models.MessagePack
 
     }
 
-    public sealed class WeatherData_Factory : IEntityFactory<IWeatherData, WeatherData>
+    public sealed class WeatherDetail_Factory : IEntityFactory<IWeatherDetail, WeatherDetail>
     {
-        private static readonly WeatherData_Factory _instance = new WeatherData_Factory();
-        public static WeatherData_Factory Instance => _instance;
+        private static readonly WeatherDetail_Factory _instance = new WeatherDetail_Factory();
+        public static WeatherDetail_Factory Instance => _instance;
 
-        public WeatherData? CreateFrom(IWeatherData? source)
+        public WeatherDetail? CreateFrom(IWeatherDetail? source)
         {
             if (source is null) return null;
-            if (source is WeatherData sibling && sibling.IsFrozen()) return sibling;
-            return new WeatherData(source);
+            if (source is WeatherDetail sibling && sibling.IsFrozen()) return sibling;
+            return new WeatherDetail(source);
         }
 
-        private static readonly WeatherData _empty = new WeatherData().Frozen();
-        public WeatherData Empty => _empty;
+        private static readonly WeatherDetail _empty = new WeatherDetail().Frozen();
+        public WeatherDetail Empty => _empty;
     }
     [MessagePackObject]
-    public partial class WeatherData : EntityBase, IWeatherData, IEquatable<WeatherData>, ICopyFrom<WeatherData>
+    public partial class WeatherDetail : EntityBase, IWeatherDetail, IEquatable<WeatherDetail>, ICopyFrom<WeatherDetail>
     {
         protected override void OnFreeze()
         {
@@ -240,23 +240,23 @@ namespace MyFamily.Models.MessagePack
             set => field_Summary = CheckNotFrozen(ref value);
         }
 
-        // ---------- IWeatherData methods ----------
-        DateTime IWeatherData.Date => field_Date.ToExternal();
-        Int32 IWeatherData.TemperatureC => field_TemperatureC.ToExternal();
-        String? IWeatherData.Summary => field_Summary;
+        // ---------- IWeatherDetail methods ----------
+        DateTime IWeatherDetail.Date => field_Date.ToExternal();
+        Int32 IWeatherDetail.TemperatureC => field_TemperatureC.ToExternal();
+        String? IWeatherDetail.Summary => field_Summary;
 
-        public WeatherData()
+        public WeatherDetail()
         {
         }
 
-        public WeatherData(WeatherData source) : base(source)
+        public WeatherDetail(WeatherDetail source) : base(source)
         {
             field_Date = source.field_Date;
             field_TemperatureC = source.field_TemperatureC;
             field_Summary = source.field_Summary;
         }
 
-        public void CopyFrom(WeatherData source)
+        public void CopyFrom(WeatherDetail source)
         {
             base.CopyFrom(source);
             field_Date = source.field_Date;
@@ -264,14 +264,14 @@ namespace MyFamily.Models.MessagePack
             field_Summary = source.field_Summary;
         }
 
-        public WeatherData(IWeatherData source) : base(source)
+        public WeatherDetail(IWeatherDetail source) : base(source)
         {
             field_Date = source.Date.ToInternal();
             field_TemperatureC = source.TemperatureC.ToInternal();
             field_Summary = source.Summary;
         }
 
-        public bool Equals(WeatherData? other)
+        public bool Equals(WeatherDetail? other)
         {
             if (other is null) return false;
             if (ReferenceEquals(other, this)) return true;
@@ -281,13 +281,13 @@ namespace MyFamily.Models.MessagePack
             return base.Equals(other);
         }
 
-        public static bool operator ==(WeatherData left, WeatherData right)
+        public static bool operator ==(WeatherDetail left, WeatherDetail right)
         {
             if (left is null) return (right is null);
             return left.Equals(right);
         }
 
-        public static bool operator !=(WeatherData left, WeatherData right)
+        public static bool operator !=(WeatherDetail left, WeatherDetail right)
         {
             if (left is null) return !(right is null);
             return !left.Equals(right);
@@ -295,7 +295,7 @@ namespace MyFamily.Models.MessagePack
 
         public override bool Equals(object? obj)
         {
-            return obj is WeatherData other && Equals(other);
+            return obj is WeatherDetail other && Equals(other);
         }
 
         private int CalcHashCode()
@@ -304,6 +304,145 @@ namespace MyFamily.Models.MessagePack
             hc.Add(field_Date.CalcHashUnary());
             hc.Add(field_TemperatureC.CalcHashUnary());
             hc.Add(field_Summary.CalcHashUnary());
+            hc.Add(base.GetHashCode());
+            return hc.ToHashCode();
+        }
+
+        private int? _hashCode = null;
+        public override int GetHashCode()
+        {
+            if (!_isFrozen) return CalcHashCode();
+            if (_hashCode is null)
+                _hashCode = CalcHashCode();
+            return _hashCode.Value;
+        }
+
+    }
+
+    public sealed class WeatherBundle_Factory : IEntityFactory<IWeatherBundle, WeatherBundle>
+    {
+        private static readonly WeatherBundle_Factory _instance = new WeatherBundle_Factory();
+        public static WeatherBundle_Factory Instance => _instance;
+
+        public WeatherBundle? CreateFrom(IWeatherBundle? source)
+        {
+            if (source is null) return null;
+            if (source is WeatherBundle sibling && sibling.IsFrozen()) return sibling;
+            return new WeatherBundle(source);
+        }
+
+        private static readonly WeatherBundle _empty = new WeatherBundle().Frozen();
+        public WeatherBundle Empty => _empty;
+    }
+    [MessagePackObject]
+    public partial class WeatherBundle : EntityBase, IWeatherBundle, IEquatable<WeatherBundle>, ICopyFrom<WeatherBundle>
+    {
+        protected override void OnFreeze()
+        {
+            if (field_Details is not null)
+            {
+                foreach (var element in field_Details)
+                {
+                    element?.Freeze();
+                }
+            }
+            base.OnFreeze();
+        }
+
+        public new const int EntityTag = 3;
+        protected override int OnGetEntityTag() => EntityTag;
+
+        // ---------- private fields ----------
+        private String? field_ServerVersion;
+        private String? field_StatusMessage;
+        private ImmutableList<WeatherDetail?>? field_Details;
+
+        // ---------- accessors ----------
+        [Key(1)]
+        public String? ServerVersion
+        {
+            get => field_ServerVersion;
+            set => field_ServerVersion = CheckNotFrozen(ref value);
+        }
+        [Key(2)]
+        public String? StatusMessage
+        {
+            get => field_StatusMessage;
+            set => field_StatusMessage = CheckNotFrozen(ref value);
+        }
+        [Key(3)]
+        public ImmutableList<WeatherDetail?>? Details
+        {
+            get => field_Details;
+            set => field_Details = CheckNotFrozen(ref value);
+        }
+
+        // ---------- IWeatherBundle methods ----------
+        String? IWeatherBundle.ServerVersion => field_ServerVersion;
+        String? IWeatherBundle.StatusMessage => field_StatusMessage;
+        IReadOnlyList<IWeatherDetail?>? IWeatherBundle.Details => field_Details;
+
+        public WeatherBundle()
+        {
+        }
+
+        public WeatherBundle(WeatherBundle source) : base(source)
+        {
+            field_ServerVersion = source.field_ServerVersion;
+            field_StatusMessage = source.field_StatusMessage;
+            field_Details = source.field_Details;
+        }
+
+        public void CopyFrom(WeatherBundle source)
+        {
+            base.CopyFrom(source);
+            field_ServerVersion = source.field_ServerVersion;
+            field_StatusMessage = source.field_StatusMessage;
+            field_Details = source.field_Details;
+        }
+
+        public WeatherBundle(IWeatherBundle source) : base(source)
+        {
+            field_ServerVersion = source.ServerVersion;
+            field_StatusMessage = source.StatusMessage;
+            field_Details = source.Details is null
+                ? null
+                : ImmutableList<WeatherDetail?>.Empty.AddRange(source.Details.Select(x => WeatherDetail_Factory.Instance.CreateFrom(x)));
+        }
+
+        public bool Equals(WeatherBundle? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(other, this)) return true;
+            if (!field_ServerVersion.ValueEquals(other.field_ServerVersion)) return false;
+            if (!field_StatusMessage.ValueEquals(other.field_StatusMessage)) return false;
+            if (!field_Details.ArrayEquals(other.field_Details)) return false;
+            return base.Equals(other);
+        }
+
+        public static bool operator ==(WeatherBundle left, WeatherBundle right)
+        {
+            if (left is null) return (right is null);
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(WeatherBundle left, WeatherBundle right)
+        {
+            if (left is null) return !(right is null);
+            return !left.Equals(right);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is WeatherBundle other && Equals(other);
+        }
+
+        private int CalcHashCode()
+        {
+            HashCode hc = new HashCode();
+            hc.Add(field_ServerVersion.CalcHashUnary());
+            hc.Add(field_StatusMessage.CalcHashUnary());
+            hc.Add(field_Details.CalcHashArray());
             hc.Add(base.GetHashCode());
             return hc.ToHashCode();
         }
