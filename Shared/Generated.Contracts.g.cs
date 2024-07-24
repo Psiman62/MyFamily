@@ -25,4 +25,10 @@ namespace MyFamily.Models.Contracts
     {
         String? ProfileName { get; }
     }
+    public partial interface IWeatherData : IEntityBase
+    {
+        DateTime Date { get; }
+        Int32 TemperatureC { get; }
+        String? Summary { get; }
+    }
 }

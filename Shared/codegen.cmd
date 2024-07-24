@@ -15,6 +15,7 @@ set models=MyFamily.Models
 
 call :a2c Contracts
 call :a2c MessagePack
+call :a2c JsonSystemText
 
 goto :eof
 

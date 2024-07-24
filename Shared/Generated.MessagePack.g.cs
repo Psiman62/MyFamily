@@ -189,5 +189,135 @@ namespace MyFamily.Models.MessagePack
 
     }
 
+    public sealed class WeatherData_Factory : IEntityFactory<IWeatherData, WeatherData>
+    {
+        private static readonly WeatherData_Factory _instance = new WeatherData_Factory();
+        public static WeatherData_Factory Instance => _instance;
+
+        public WeatherData? CreateFrom(IWeatherData? source)
+        {
+            if (source is null) return null;
+            if (source is WeatherData sibling && sibling.IsFrozen()) return sibling;
+            return new WeatherData(source);
+        }
+
+        private static readonly WeatherData _empty = new WeatherData().Frozen();
+        public WeatherData Empty => _empty;
+    }
+    [MessagePackObject]
+    public partial class WeatherData : EntityBase, IWeatherData, IEquatable<WeatherData>, ICopyFrom<WeatherData>
+    {
+        protected override void OnFreeze()
+        {
+            base.OnFreeze();
+        }
+
+        public new const int EntityTag = 2;
+        protected override int OnGetEntityTag() => EntityTag;
+
+        // ---------- private fields ----------
+        private DateTimeValue field_Date;
+        private Int32 field_TemperatureC;
+        private String? field_Summary;
+
+        // ---------- accessors ----------
+        [Key(1)]
+        public DateTimeValue Date
+        {
+            get => field_Date;
+            set => field_Date = CheckNotFrozen(ref value);
+        }
+        [Key(2)]
+        public Int32 TemperatureC
+        {
+            get => field_TemperatureC;
+            set => field_TemperatureC = CheckNotFrozen(ref value);
+        }
+        [Key(3)]
+        public String? Summary
+        {
+            get => field_Summary;
+            set => field_Summary = CheckNotFrozen(ref value);
+        }
+
+        // ---------- IWeatherData methods ----------
+        DateTime IWeatherData.Date => field_Date.ToExternal();
+        Int32 IWeatherData.TemperatureC => field_TemperatureC.ToExternal();
+        String? IWeatherData.Summary => field_Summary;
+
+        public WeatherData()
+        {
+        }
+
+        public WeatherData(WeatherData source) : base(source)
+        {
+            field_Date = source.field_Date;
+            field_TemperatureC = source.field_TemperatureC;
+            field_Summary = source.field_Summary;
+        }
+
+        public void CopyFrom(WeatherData source)
+        {
+            base.CopyFrom(source);
+            field_Date = source.field_Date;
+            field_TemperatureC = source.field_TemperatureC;
+            field_Summary = source.field_Summary;
+        }
+
+        public WeatherData(IWeatherData source) : base(source)
+        {
+            field_Date = source.Date.ToInternal();
+            field_TemperatureC = source.TemperatureC.ToInternal();
+            field_Summary = source.Summary;
+        }
+
+        public bool Equals(WeatherData? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(other, this)) return true;
+            if (!field_Date.ValueEquals(other.field_Date)) return false;
+            if (!field_TemperatureC.ValueEquals(other.field_TemperatureC)) return false;
+            if (!field_Summary.ValueEquals(other.field_Summary)) return false;
+            return base.Equals(other);
+        }
+
+        public static bool operator ==(WeatherData left, WeatherData right)
+        {
+            if (left is null) return (right is null);
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(WeatherData left, WeatherData right)
+        {
+            if (left is null) return !(right is null);
+            return !left.Equals(right);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is WeatherData other && Equals(other);
+        }
+
+        private int CalcHashCode()
+        {
+            HashCode hc = new HashCode();
+            hc.Add(field_Date.CalcHashUnary());
+            hc.Add(field_TemperatureC.CalcHashUnary());
+            hc.Add(field_Summary.CalcHashUnary());
+            hc.Add(base.GetHashCode());
+            return hc.ToHashCode();
+        }
+
+        private int? _hashCode = null;
+        public override int GetHashCode()
+        {
+            if (!_isFrozen) return CalcHashCode();
+            if (_hashCode is null)
+                _hashCode = CalcHashCode();
+            return _hashCode.Value;
+        }
+
+    }
+
 
 }
